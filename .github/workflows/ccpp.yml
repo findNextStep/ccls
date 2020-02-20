@@ -1,0 +1,16 @@
+name: try build in windows
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: install llvm
+      run: choco install llvm -y
+    - name: generator cmake
+      run: cmake -H. -Bbuild/Release -G "Unix Makefiles"
+    - name: make check
+      run: make -C build/Release -j
+
